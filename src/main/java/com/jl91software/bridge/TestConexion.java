@@ -1,21 +1,29 @@
 package com.jl91software.bridge;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+@Component
 public class TestConexion {
+
+    @Value("${pub400.url}")
+    private String url;
+    @Value("${pub400.username}")
+    private String user;
+    @Value("${pub400.password}")
+    private String password;
+
     public void conectarAS400() {
-        // Sustituye con tus credenciales de PUB400
-        String url = "jdbc:as400://pub400.com";
-        String usuario = "JIMLEE";
-        String password = "jl4005357d";
 
         try {
             // Cargar el driver que incluimos en el pom.xml
             Class.forName("com.ibm.as400.access.AS400JDBCDriver");
-            Connection con = DriverManager.getConnection(url, usuario, password);
+            Connection con = DriverManager.getConnection(url, user, password);
 
             System.out.println("¡Conexión exitosa al servidor IBM i!");
 
